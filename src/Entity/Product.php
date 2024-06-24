@@ -7,12 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-// use App\service\ProductService;
+use App\service\ProductService;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
-    // private $productService;
+    private $productService;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -40,10 +40,10 @@ class Product
     #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'product')]
     private Collection $reviews;
 
-    public function __construct()
+    public function __construct(productService $productService)
     {
         $this->reviews = new ArrayCollection();
-        // $this->productService = $productService;
+        $this->productService = $productService;
 
 
     }
